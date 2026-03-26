@@ -20,7 +20,7 @@
 
     {{-- 下書きセクション --}}
     @if($draftWords->count() > 0 && $initial === '')
-        <div class="rounded-xl px-4 py-3 mb-6" style="background:#FEFBE8; border:1px solid #E8DC9A;">
+        <div class="rounded-xl mt-4 px-4 py-3 mb-6" style="background:#FEFBE8; border:1px solid #E8DC9A;">
             <p class="text-[10px] font-bold text-[#9A8A7A] tracking-widest mb-3">下書き</p>
             <div class="flex flex-col gap-2">
                 @foreach($draftWords as $word)

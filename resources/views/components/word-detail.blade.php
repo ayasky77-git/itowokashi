@@ -26,7 +26,7 @@
     $nextWord = $currentIndex < $words->count() - 1 ? $words[$currentIndex + 1] : null;
 @endphp
 
-<div class="rounded-2xl px-6 py-8 mb-4 relative overflow-hidden"
+<div class="rounded-2xl mt-4 px-6 py-8 mb-4 relative overflow-hidden"
      style="background:#fff; box-shadow:0 2px 10px rgba(0,0,0,0.07);">
 
     {{-- 見出し語 --}}

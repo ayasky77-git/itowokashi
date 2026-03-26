@@ -1,29 +1,27 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
-            </div>
+@section('header')
+    {{-- マイページから戻れるように、戻り先を dashboard に設定 --}}
+    <x-page-header title="プロフィール設定" :backUrl="route('dashboard')" />
+@endsection
 
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
-            </div>
-        </div>
+@section('content')
+<div class="flex flex-col items-center px-4 pt-8 pb-32 space-y-8">
+    
+    {{-- 1. プロフィール情報更新 --}}
+    <div class="w-full rounded-2xl p-6 shadow-sm border border-[#E0D4C0]" style="background:#fff;">
+        @include('profile.partials.update-profile-information-form')
     </div>
-</x-app-layout>
+
+    {{-- 2. パスワード更新 --}}
+    <div class="w-full rounded-2xl p-6 shadow-sm border border-[#E0D4C0]" style="background:#fff;">
+        @include('profile.partials.update-password-form')
+    </div>
+
+    {{-- 3. アカウント削除 --}}
+    <div class="w-full rounded-2xl p-6 shadow-sm border border-[#E0D4C0]" style="background:#fff;">
+        @include('profile.partials.delete-user-form')
+    </div>
+
+</div>
+@endsection
