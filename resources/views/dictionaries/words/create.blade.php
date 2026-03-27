@@ -76,6 +76,20 @@
                             class="w-full rounded-lg px-3 py-2 text-sm text-[#2E1A08] outline-none resize-none"
                             style="background:#F6F2EC; border:1px solid #E0D4C0;"></textarea>
                 </div>
+                <div class="mb-3">
+                    <label class="text-[10px] font-bold text-[#9A8A7A] tracking-widest mb-1 block">【関連語】<span class="text-[#9A8A7A] font-normal">カンマ区切り</span></label>
+                    <input type="text" id="ai-synonyms" name="ai-synonyms"
+                        placeholder="例：沼落ち, 無限ループ"
+                        class="w-full rounded-lg px-3 py-2 text-sm text-[#2E1A08] outline-none"
+                        style="background:#F6F2EC; border:1px solid #E0D4C0;">
+                </div>
+                <div class="mb-3">
+                    <label class="text-[10px] font-bold text-[#9A8A7A] tracking-widest mb-1 block">【対義語】<span class="text-[#9A8A7A] font-normal">カンマ区切り</span></label>
+                    <input type="text" id="ai-antonyms" name="ai-antonyms"
+                        placeholder="例：Control+C"
+                        class="w-full rounded-lg px-3 py-2 text-sm text-[#2E1A08] outline-none"
+                        style="background:#F6F2EC; border:1px solid #E0D4C0;">
+                </div>
             </div>
         </div>
 
@@ -84,7 +98,7 @@
             <p class="text-sm text-[#9A8A7A]">✦ 考え中...</p>
         </div>
 
-        {{-- タグ --}}
+        <!-- {{-- タグ --}}
         @if($tags->count() > 0)
             <div class="rounded-xl px-4 py-4 mb-4" style="background:#fff; border:1px solid #E0D4C0;">
                 <label class="text-sm font-bold text-[#2E1A08] mb-3 block">タグ</label>
@@ -99,7 +113,7 @@
                     @endforeach
                 </div>
             </div>
-        @endif
+        @endif -->
 
         {{-- 写真アップロード --}}
         <div class="rounded-xl px-4 py-4 mb-6" style="background:#fff; border:1px solid #E0D4C0;">
@@ -169,10 +183,14 @@
 
         // フォーム送信時にdictionary_dataをセット
         document.getElementById('wordForm').addEventListener('submit', function() {
+            const synonymsRaw = document.getElementById('ai-synonyms').value;
+            const antonymsRaw = document.getElementById('ai-antonyms').value;
             document.getElementById('dictionary_data').value = JSON.stringify({
-                meaning: document.getElementById('ai-meaning').value,
-                origin: document.getElementById('ai-origin').value,
-                example: document.getElementById('ai-example').value,
+                meaning:  document.getElementById('ai-meaning').value,
+                origin:   document.getElementById('ai-origin').value,
+                example:  document.getElementById('ai-example').value,
+                synonyms: synonymsRaw ? synonymsRaw.split(',').map(s => s.trim()).filter(Boolean) : [],
+                antonyms: antonymsRaw ? antonymsRaw.split(',').map(s => s.trim()).filter(Boolean) : [],
             });
         });
 

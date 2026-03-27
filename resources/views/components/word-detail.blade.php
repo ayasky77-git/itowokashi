@@ -57,6 +57,12 @@
 
     <hr class="border-[#E0D4C0] mb-5">
 
+    @if($word->image_path)
+    <img src="{{ asset('storage/' . $word->image_path) }}"
+        class="rounded-xl mb-4 block mx-auto"
+        style="max-width:100%; height:auto;">
+    @endif
+
     @if($meaning)
     <div class="mb-5">
         <p class="text-[11px] font-bold text-[#E8A030] tracking-widest mb-2">【意味】</p>
@@ -79,17 +85,37 @@
     @endif
 
     @if(!empty($synonyms) || !empty($antonyms))
+    @php
+        $linkedSynonyms = collect($synonyms)->map(fn($s) => [
+            'label' => $s,
+            'word' => \App\Models\Word::where('dictionary_id', $dictionary->id)->where('headword', $s)->where('status', 'published')->first()
+        ])->filter(fn($s) => $s['word']);
+
+        $linkedAntonyms = collect($antonyms)->map(fn($a) => [
+            'label' => $a,
+            'word' => \App\Models\Word::where('dictionary_id', $dictionary->id)->where('headword', $a)->where('status', 'published')->first()
+        ])->filter(fn($a) => $a['word']);
+    @endphp
+
+    @if($linkedSynonyms->count() > 0 || $linkedAntonyms->count() > 0)
     <div class="mb-5">
         <p class="text-[11px] font-bold text-[#E8A030] tracking-widest mb-2">【関連語】</p>
         <div class="flex flex-wrap gap-2 pl-4">
-            @foreach($synonyms as $s)
-            <span class="text-xs text-[#2E1A08] border border-[#E0D4C0] rounded-full px-3 py-1">{{ $s }}</span>
+            @foreach($linkedSynonyms as $s)
+            <a href="{{ route('dictionaries.words.show', [$dictionary, $s['word']]) }}"
+            class="text-xs text-[#E8A030] border border-[#E8A030] rounded-full px-3 py-1">
+                {{ $s['label'] }}
+            </a>
             @endforeach
-            @foreach($antonyms as $a)
-            <span class="text-xs text-[#9A8A7A] border border-[#E0D4C0] rounded-full px-3 py-1">{{ $a }}</span>
+            @foreach($linkedAntonyms as $a)
+            <a href="{{ route('dictionaries.words.show', [$dictionary, $a['word']]) }}"
+            class="text-xs text-[#9A8A7A] border border-[#9A8A7A] rounded-full px-3 py-1">
+                {{ $a['label'] }}
+            </a>
             @endforeach
         </div>
     </div>
+    @endif
     @endif
 
     @if($word->tags->count() > 0)
@@ -98,11 +124,6 @@
         <span class="text-xs text-[#9A8A7A] bg-[#F2E8D8] rounded-full px-3 py-1"># {{ $tag->name }}</span>
         @endforeach
     </div>
-    @endif
-
-    @if($word->image_path)
-    <img src="{{ asset('storage/' . $word->image_path) }}"
-         class="w-full rounded-xl mb-4 object-cover" style="max-height:200px;">
     @endif
 
 </div>
