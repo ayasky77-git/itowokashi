@@ -202,6 +202,28 @@
         document.getElementById('raw_episode').addEventListener('input', updateAiBtn);
         document.getElementById('headword').addEventListener('input', updateAiBtn);
 
+        function updateAiBtn() {
+            const headword = document.getElementById('headword').value.trim();
+            const episode = document.getElementById('raw_episode').value.trim();
+            const aiBtn = document.getElementById('aiBtn');
+
+            if (headword && episode) {
+                // 入力がある時：アクティブ（オレンジ）
+                aiBtn.style.background = '#E8A030';
+                aiBtn.style.color = '#fff';
+                aiBtn.disabled = false;
+                aiBtn.style.cursor = 'pointer';
+                aiBtn.style.opacity = '1';
+            } else {
+                // 入力がない時：非アクティブ（薄いベージュ）
+                aiBtn.style.background = '#F2E8D8';
+                aiBtn.style.color = '#C8A878';
+                aiBtn.disabled = true;
+                aiBtn.style.cursor = 'not-allowed';
+                aiBtn.style.opacity = '0.7';
+            }
+        }
+
         // AI変換実行
         async function askAI() {
             const raw_episode = document.getElementById('raw_episode').value;

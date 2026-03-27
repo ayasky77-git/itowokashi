@@ -19,7 +19,7 @@
         @csrf
 
         {{-- プレビュー --}}
-        <div class="text-center py-4 -mx-4 px-4 mb-6 sticky top-0 z-30"
+        <div class="text-center py-4 -mx-4 px-4 mb-6 -mt-4 sticky top-0 z-30"
             style="background:rgba(254,248,240,0.85);">
             <div class="relative inline-block">
                 <div id="preview-cover"

@@ -6,7 +6,7 @@
 
 @section('content')
     {{-- 検索フォーム：編集画面の入力欄と同じスタイル --}}
-    <form action="{{ route('search.index') }}" method="GET" class="mt-6 mb-8">
+    <form action="{{ route('search.index') }}" method="GET" class="mb-8">
         <label class="text-sm font-bold text-[#2E1A08] mb-2 block">検索ワード</label>
         <div class="flex gap-2">
             <input type="text" name="keyword" value="{{ request('keyword') }}"

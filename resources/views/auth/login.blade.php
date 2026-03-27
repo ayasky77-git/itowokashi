@@ -14,6 +14,9 @@
                            placeholder="example@email.com"
                            class="w-full rounded-lg px-3 py-2.5 text-sm text-[#2E1A08] outline-none focus:ring-0"
                            style="background:#F6F2EC; border:1px solid #E0D4C0;">
+                            @error('email')
+                                <p class="text-xs text-[#C0392B] mt-1">{{ $message }}</p>
+                            @enderror                           
                 </div>
 
                 <div class="mb-5">
@@ -21,7 +24,10 @@
                     <input type="password" name="password" required
                            class="w-full rounded-lg px-3 py-2.5 text-sm text-[#2E1A08] outline-none focus:ring-0"
                            style="background:#F6F2EC; border:1px solid #E0D4C0;">
-                </div>
+                            @error('password')
+                                <p class="text-xs text-[#C0392B] mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
 
                 <div class="flex items-center justify-between mb-8">
                     <label class="flex items-center gap-1.5 cursor-pointer">

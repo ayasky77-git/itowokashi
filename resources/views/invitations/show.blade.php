@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
-@section('content')
-<div class="flex flex-col items-center justify-center pt-10 px-4 pb-10">
+@section('header')
+    <x-page-header title="招待コード" :backUrl="route('dashboard')" />
+@endsection
 
-    {{-- ロゴコンポーネント（サブタイトルを招待用に変更） --}}
-    <x-auth-logo subtitle="Join Dictionary" />
+@section('content')
+<div class="flex flex-col items-center justify-center px-4 pb-10">
 
     {{-- 認証画面と共通のカードコンポーネント --}}
     <x-auth-card>
@@ -39,10 +40,10 @@
     </x-auth-card>
 
     {{-- 戻るリンク（フッター的役割） --}}
-    <div class="mt-8 text-center">
+    <!-- <div class="mt-8 text-center">
         <a href="{{ route('dictionaries.index') }}" class="text-[11px] text-[#9A8A7A] underline decoration-[#E0D4C0]">
             本棚に戻る
         </a>
-    </div>
+    </div> -->
 </div>
 @endsection

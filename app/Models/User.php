@@ -51,4 +51,10 @@ class User extends Authenticatable
     {
     return $this->hasMany(Dictionary::class);
     }
+
+    public function dictionaryUsers()
+    {
+        return $this->hasMany(DictionaryUser::class);
+    }
+
 }

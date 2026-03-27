@@ -10,8 +10,12 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\GeminiController;
 use App\Http\Controllers\ReactionController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NotificationController;
+
 
 Route::get('/', [PickupController::class, 'index'])->name('pickup.index');
+Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])

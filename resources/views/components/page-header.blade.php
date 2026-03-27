@@ -3,7 +3,7 @@
     'backUrl' => null,
 ])
 
-<div class="flex items-center justify-between -mx-4 px-4 py-3"
+<div class="flex items-center justify-between -mx-4 px-4 py-3 mb-4"
      style="background:#FEF8F0; border-bottom:1px solid #E0D4C0;">
 
     {{-- 左：戻るボタン or 空白 --}}

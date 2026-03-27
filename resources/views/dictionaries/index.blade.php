@@ -10,28 +10,34 @@
 @section('content')
 
     @php
-        $defaultColors = ['#E8A030','#D46B3A','#6FA8C4','#7FAF82','#8A7E9A','#C4A46A','#C46A7A','#5A8A90'];
+        // 1行に表示する辞書数（56px + gap 6px = 約62px、棚幅約330pxで5冊）
+        $perRow = 5;
+        $rows = $dictionaries->chunk($perRow);
     @endphp
 
-    <div class="rounded-b-xl pb-0 mb-6" style="
-        padding: 16px 16px 0;
-        background-color: #F2E8D8;2248%22 height=%2248%22><line x1=%220%22 y1=%220%22 x2=%2248%22 y2=%220%22 stroke=%22%23C8A878%22 stroke-width=%221%22 /><line x1=%220%22 y1=%228%22 x2=%2248%22 y2=%228%22 stroke=%22%23C8A878%22 stroke-width=%221%22 /><line x1=%220%22 y1=%2216%22 x2=%2248%22 y2=%2216%22 stroke=%22%23C8A878%22 stroke-width=%221%22 /><line x1=%220%22 y1=%2224%22 x2=%2248%22 y2=%2224%22 stroke=%22%23C8A878%22 stroke-width=%221%22 /><line x1=%220%22 y1=%2232%22 x2=%2248%22 y2=%2232%22 stroke=%22%23C8A878%22 stroke-width=%221%22 /><line x1=%220%22 y1=%2240%22 x2=%2248%22 y2=%2240%22 stroke=%22%23C8A878%22 stroke-width=%221%22 /><line x1=%220%22 y1=%220%22 x2=%220%22 y2=%2248%22 stroke=%22%23C8A878%22 stroke-width=%221%22 /><line x1=%228%22 y1=%220%22 x2=%228%22 y2=%2248%22 stroke=%22%23C8A878%22 stroke-width=%221%22 /><line x1=%2216%22 y1=%220%22 x2=%2216%22 y2=%2248%22 stroke=%22%23C8A878%22 stroke-width=%221%22 /><line x1=%2224%22 y1=%220%22 x2=%2224%22 y2=%2248%22 stroke=%22%23C8A878%22 stroke-width=%221%22 /><line x1=%2232%22 y1=%220%22 x2=%2232%22 y2=%2248%22 stroke=%22%23C8A878%22 stroke-width=%221%22 /><line x1=%2240%22 y1=%220%22 x2=%2240%22 y2=%2248%22 stroke=%22%23C8A878%22 stroke-width=%221%22 /></svg>');
-        background-repeat: repeat;
-        background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%
-    "> 
+        @foreach($rows as $row)
+        <div class="" style="
+            padding: 16px 16px 0;
+            background-color: #A67C52;">
 
-        <div class="h-2.5 -mx-4 rounded" style="background:#C8A878; margin: 10px -15px;"></div>
+            {{-- 上の棚板（最初の行のみ） --}}
+            @if($loop->first)
+            <div class="h-2.5 -mx-4 rounded" style="background:#C8A878; margin: 0px -16px 10px;"></div>
+            @endif
 
-        <div class="flex items-end gap-1.5 flex-wrap">
-            @foreach($dictionaries as $i => $dictionary)
-                <x-spine-card :dictionary="$dictionary" :index="$i" />
-            @endforeach
+            <div class="flex items-end gap-1.5">
+                @foreach($row as $i => $dictionary)
+                    <x-spine-card :dictionary="$dictionary" :index="$loop->parent->index * $perRow + $i" />
+                @endforeach
+            </div>
+
+            {{-- 下の棚板 --}}
+            <div class="h-2.5 -mx-4" style="background:#C8A878; margin: 4px -16px 0;"></div>
         </div>
-        <div class="h-2.5 -mx-4 rounded" style="background:#C8A878; margin: 0px -15px;"></div>
-    </div>
+    @endforeach
 
     <a href="{{ route('dictionaries.create') }}"
-    class="flex items-center gap-2 w-full rounded-xl px-4 py-3 text-[#9A8A7A] text-sm"
+    class="flex items-center gap-2 w-full rounded-xl mt-4 px-4 py-3 text-[#9A8A7A] text-sm"
     style="background:#fff; border:1.5px dashed #E0D4C0;">
         <span class="w-5 h-5 rounded-full flex items-center justify-center text-white text-base leading-none"
             style="background:#E8A030;">+</span>

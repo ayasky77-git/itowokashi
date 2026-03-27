@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="flex flex-col px-4 pt-6 pb-32 space-y-4">
+<div class="flex flex-col px-4 pb-32 space-y-4">
 
     {{-- 1. ユーザープロフィールカード --}}
     <a href="{{ route('profile.edit') }}"

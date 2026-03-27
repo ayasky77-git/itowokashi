@@ -12,6 +12,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     </head>
         <body>
             <!-- Page Content -->
@@ -20,6 +21,38 @@
                 @yield('content')
             </main>
             
+            {{-- 辞書選択モーダル --}}
+            <div id="dictSelectModal"
+                class="hidden fixed inset-0 z-50 flex items-end justify-center"
+                style="background:rgba(0,0,0,0.4);"
+                onclick="if(event.target===this)this.classList.add('hidden')">
+
+                <div class="w-full max-w-[390px] rounded-t-2xl pb-8"
+                    style="background:#FEF8F0;">
+
+                    {{-- ハンドル + ×ボタン --}}
+                    <div class="flex items-center justify-between px-4 pt-3 pb-2">
+                        <div class="w-6"></div>
+                        <div class="w-10 h-1 rounded-full" style="background:#E0D4C0;"></div>
+                        <button onclick="document.getElementById('dictSelectModal').classList.add('hidden')"
+                                class="w-6 h-6 flex items-center justify-center text-[#9A8A7A]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <p class="text-sm font-bold text-[#2E1A08] px-6 mb-4">どの辞書に言葉を追加しますか？</p>
+
+                    <div class="flex flex-col gap-2 px-4 max-h-64 overflow-y-auto">
+                            @foreach(auth()->user()->dictionaryUsers()->with('dictionary')->orderByDesc('last_accessed_at')->get() as $du)                            @if($du->dictionary && !$du->dictionary->trashed())
+                                <x-dict-modal-item :dictionary="$du->dictionary" />
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
             <!-- Bottom Tab Bar -->
             <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[390px] bg-[#FEF8F0] border-t border-[#E0D4C0] h-14 flex items-center justify-around z-50">
                 
@@ -31,18 +64,19 @@
                 </a>    
 
 
-                <a href="{{ route('pickup.index') }}" class="w-16 flex flex-col items-center gap-0.5 text-[#9A8A7A] text-xs hover:text-[#E8A030] transition-colors">
+                <a href="{{ route('notifications.index') }}" class="w-16 flex flex-col items-center gap-0.5 text-[#9A8A7A] text-xs hover:text-[#E8A030] transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
                         <path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"></path>
                     </svg>               
                     通知                  
                 </a>    
 
-                <a href="{{ route('dictionaries.create') }}" class="w-16 flex flex-col items-center justify-center w-16 h-16 bg-[#E8A030] rounded-full text-white -mt-4 shadow-md">
+                <button onclick="document.getElementById('dictSelectModal').classList.remove('hidden')"
+                        class="w-16 flex flex-col items-center justify-center w-16 h-16 bg-[#E8A030] rounded-full text-white -mt-4 shadow-md">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M12 4v16m8-8H4" />
                     </svg>
-                </a>
+                </button>
 
                 <a href="{{ route('search.index') }}" class="w-16 flex flex-col items-center gap-0.5 text-[#9A8A7A] text-xs hover:text-[#E8A030] transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
@@ -58,7 +92,6 @@
                     </svg>
                     マイページ
                 </a>
-
             </nav>
 
             <!-- ボトムタブ分の余白 -->
