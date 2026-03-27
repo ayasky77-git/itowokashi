@@ -1,5 +1,5 @@
 @extends('layouts.app')
-e
+
 @section('header')
     <x-page-header title="通知" />
 @endsection

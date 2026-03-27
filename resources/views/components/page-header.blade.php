@@ -18,7 +18,7 @@
     @endif
 
     {{-- 中央：タイトル --}}
-    <h1 class="font-serif text-base text-[#2E1A08] tracking-wider">{{ $title }}</h1>
+    <h1 class="font-serif text-base text-[#665A50] tracking-wider">{{ $title }}</h1>
 
     {{-- 右：スロット or 空白 --}}
     @if($slot->isNotEmpty())

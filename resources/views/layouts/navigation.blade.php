@@ -2,7 +2,7 @@
     <div class="max-w-[390px] mx-auto px-4 h-12 flex items-center justify-between">
         
         <a href="{{ route('dictionaries.index') }}" 
-           class="font-serif text-lg text-[#2E1A08] tracking-widest">
+           class="font-serif text-lg text-[#665A50] tracking-widest">
             イトヲカシ
         </a>
 

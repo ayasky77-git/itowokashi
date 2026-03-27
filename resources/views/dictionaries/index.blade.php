@@ -2,8 +2,8 @@
 
 @section('header')
     <div class="text-center mb-6 my-6">
-        <h1 class="font-serif text-xl text-[#2E1A08] tracking-widest">イトヲカシ</h1>
-        <p class="text-xs text-[#9A8A7A] mt-1">コミュニティ辞書</p>
+        <p class="text-xs text-[#9A8A7A] mb-1">思い出を、綴る辞書アプリ</p>
+        <h1 class="font-serif text-xl text-[#665A50] tracking-widest">イトヲカシ</h1>
     </div>
 @endsection
 

@@ -45,10 +45,13 @@
                     <p class="text-sm font-bold text-[#2E1A08] px-6 mb-4">どの辞書に言葉を追加しますか？</p>
 
                     <div class="flex flex-col gap-2 px-4 max-h-64 overflow-y-auto">
-                            @foreach(auth()->user()->dictionaryUsers()->with('dictionary')->orderByDesc('last_accessed_at')->get() as $du)                            @if($du->dictionary && !$du->dictionary->trashed())
-                                <x-dict-modal-item :dictionary="$du->dictionary" />
-                            @endif
-                        @endforeach
+                        @auth
+                            @foreach(auth()->user()->dictionaryUsers()->with('dictionary')->orderByDesc('last_accessed_at')->get() as $du)
+                                @if($du->dictionary && !$du->dictionary->trashed())
+                                    <x-dict-modal-item :dictionary="$du->dictionary" />
+                                @endif
+                            @endforeach
+                        @endauth
                     </div>
                 </div>
             </div>
