@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\DictionaryUser;
+use App\Models\WordReaction;
+
+
 
 class ProfileController extends Controller
 {
@@ -49,6 +53,11 @@ class ProfileController extends Controller
         $user = $request->user();
 
         Auth::logout();
+
+        // 関連データを先に削除
+        $user->words()->delete();
+        DictionaryUser::where('user_id', $user->id)->delete();
+        WordReaction::where('user_id', $user->id)->delete();
 
         $user->delete();
 

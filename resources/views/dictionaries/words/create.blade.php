@@ -59,6 +59,14 @@
                 <p class="text-[10px] font-bold text-[#E8A030] tracking-widest mb-4">✦ AI変換完了！内容を確認・編集してください</p>
 
                 <div class="mb-3">
+                    <label class="text-[10px] font-bold text-[#E8A030] tracking-widest mb-1 block">【品詞】</label>
+                    <input type="text" id="ai-part-of-speech" name="ai-part-of-speech"
+                        placeholder="例：名詞、感動詞"
+                        class="w-full rounded-lg px-3 py-2 text-sm text-[#2E1A08] outline-none"
+                        style="background:#F6F2EC; border:1px solid #E0D4C0;">
+                </div>
+
+                <div class="mb-3">
                     <label class="text-[10px] font-bold text-[#E8A030] tracking-widest mb-1 block">【意味】</label>
                     <textarea id="ai-meaning" name="ai-meaning" rows="5"
                             class="w-full rounded-lg px-3 py-2 text-sm text-[#2E1A08] outline-none resize-none"
@@ -182,10 +190,16 @@
         });
 
         // フォーム送信時にdictionary_dataをセット
-        document.getElementById('wordForm').addEventListener('submit', function() {
+        document.getElementById('wordForm').addEventListener('submit', function(e) {
+            const reading = document.getElementById('reading').value;
+            const initialChar = document.getElementById('initial_char').value;
+            if (reading && !initialChar) {
+                document.getElementById('reading').dispatchEvent(new Event('input'));
+            }
             const synonymsRaw = document.getElementById('ai-synonyms').value;
             const antonymsRaw = document.getElementById('ai-antonyms').value;
             document.getElementById('dictionary_data').value = JSON.stringify({
+                part_of_speech: document.getElementById('ai-part-of-speech').value,
                 meaning:  document.getElementById('ai-meaning').value,
                 origin:   document.getElementById('ai-origin').value,
                 example:  document.getElementById('ai-example').value,
@@ -205,9 +219,12 @@
                 try {
                     const oldData = JSON.parse(oldDataStr);
                     if (oldData.meaning || oldData.origin || oldData.example) {
+                        document.getElementById('ai-part-of-speech').value = oldData.part_of_speech || '';
                         document.getElementById('ai-meaning').value = oldData.meaning || '';
                         document.getElementById('ai-origin').value = oldData.origin || '';
                         document.getElementById('ai-example').value = oldData.example || '';
+                        document.getElementById('ai-synonyms').value = (oldData.synonyms || []).join(', ');
+                        document.getElementById('ai-antonyms').value = (oldData.antonyms || []).join(', ');
                         document.getElementById('ai-result').classList.remove('hidden');
                     }
                 } catch (e) {
@@ -267,10 +284,13 @@
                 if (!res.ok) throw new Error('サーバーエラーが発生しました');
 
                 const data = await res.json();
-                
+
+                document.getElementById('ai-part-of-speech').value = data.part_of_speech || '';
                 document.getElementById('ai-meaning').value = data.meaning || '';
                 document.getElementById('ai-origin').value = data.origin || '';
                 document.getElementById('ai-example').value = data.example || '';
+                document.getElementById('ai-synonyms').value = (data.synonyms || []).join(', ');
+                document.getElementById('ai-antonyms').value = (data.antonyms || []).join(', ');
                 
                 resultArea.classList.remove('hidden');
                 

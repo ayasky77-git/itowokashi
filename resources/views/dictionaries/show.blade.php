@@ -35,7 +35,7 @@
     </div>
 
     {{-- 辞書エリア全体を relative で囲む --}}
-    <div class="relative pr-10">
+    <div class="relative">
 
         <x-index-bar :dictionary="$dictionary" :currentInitial="request('initial', '')" />
 
@@ -49,6 +49,7 @@
 
 
         {{-- 表紙 --}}
+
         <a href="{{ route('dictionaries.words.index', $dictionary) }}"> 
             <div class="relative mx-auto mb-6" style="width:200px;">
                 {{-- 本体 --}}
@@ -85,7 +86,7 @@
         </a>
 
         {{-- アクションエリア --}}
-        <div class="flex flex-col my-8 gap-3">
+        <div class="flex flex-col my-8 gap-3 pr-10 pl-10">
 
             {{-- 言葉を登録 --}}
             <a href="{{ route('dictionaries.words.create', $dictionary) }}"
@@ -113,6 +114,19 @@
                 <span class="text-[10px] text-[#9A8A7A]">コピー</span>
             </button>
 
+        </div>
+
+        {{-- 前後ナビ --}}
+        <div class="fixed bottom-14 left-1/2 -translate-x-1/2 w-full max-w-[390px] px-4 py-2 mt-3 flex items-center justify-between"
+            style="background:rgba(254,248,240,0.95);">
+            <a href="{{ $prevDictionary ? route('dictionaries.show', $prevDictionary) : '#' }}"
+            class="text-sm text-[#9A8A7A] {{ !$prevDictionary ? 'opacity-30 pointer-events-none' : '' }}">
+                ‹ 前
+            </a>
+            <a href="{{ $nextDictionary ? route('dictionaries.show', $nextDictionary) : '#' }}"
+            class="text-sm text-[#9A8A7A] {{ !$nextDictionary ? 'opacity-30 pointer-events-none' : '' }}">
+                次 ›
+            </a>
         </div>
     </div> {{-- relative wrapper --}}
 

@@ -1,7 +1,6 @@
 <x-guest-layout>
     <div class="w-full flex flex-col items-center justify-center pt-16 px-4 pb-10">        
-        <x-auth-logo subtitle="思い出を、言葉で綴る" />
-
+        <x-auth-logo subtitle="Login" />
         <x-auth-card>
             <x-auth-session-status class="mb-4 text-xs" :status="session('status')" />
 
@@ -11,9 +10,9 @@
                 <div class="mb-5">
                     <label class="text-xs font-bold text-[#2E1A08] mb-2 block">メールアドレス</label>
                     <input type="email" name="email" value="{{ old('email') }}" required autofocus
-                           placeholder="example@email.com"
-                           class="w-full rounded-lg px-3 py-2.5 text-sm text-[#2E1A08] outline-none focus:ring-0"
-                           style="background:#F6F2EC; border:1px solid #E0D4C0;">
+                        placeholder="example@email.com"
+                        class="w-full rounded-lg px-3 py-2.5 text-sm text-[#2E1A08] outline-none focus:ring-0"
+                        style="background:#F6F2EC; border:1px solid #E0D4C0;">
                             @error('email')
                                 <p class="text-xs text-[#C0392B] mt-1">{{ $message }}</p>
                             @enderror                           
@@ -23,7 +22,6 @@
                     <label class="text-xs font-bold text-[#2E1A08] mb-2 block">パスワード</label>
                     <div class="relative">
                         <input type="password" name="password" id="password" required
-                            placeholder="••••••••"
                             class="w-full rounded-lg px-3 py-2.5 text-sm text-[#2E1A08] outline-none pr-10"
                             style="background:#F6F2EC; border:1px solid #E0D4C0;">
                         <button type="button" onclick="togglePassword('password')"

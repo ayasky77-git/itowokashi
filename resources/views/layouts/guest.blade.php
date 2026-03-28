@@ -3,6 +3,8 @@
 <head>
     {{-- ... (meta, title, Fonts, Scripts) ... --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="icon" type="image/png" href="/favicon.png">
+
 </head>
 <body class="antialiased" 
       style="background-color: #FEF8F0; 

@@ -58,11 +58,20 @@
                 <p class="text-[10px] font-bold text-[#E8A030] tracking-widest mb-4">✦ AI変換完了！内容を確認・編集してください</p>
 
                 <div class="mb-3">
+                    <label class="text-[10px] font-bold text-[#E8A030] tracking-widest mb-1 block">【品詞】</label>
+                    <input type="text" id="ai-part-of-speech" name="ai-part-of-speech"
+                        placeholder="例：名詞、感動詞"
+                        class="w-full rounded-lg px-3 py-2 text-sm text-[#2E1A08] outline-none"
+                        style="background:#F6F2EC; border:1px solid #E0D4C0;">
+                </div>
+
+                <div class="mb-3">
                     <label class="text-[10px] font-bold text-[#E8A030] tracking-widest mb-1 block">【意味】</label>
                     <textarea id="ai-meaning" name="ai-meaning" rows="5"
                             class="w-full rounded-lg px-3 py-2 text-sm text-[#2E1A08] outline-none resize-none"
                             style="background:#F6F2EC; border:1px solid #E0D4C0;"></textarea>
                 </div>
+
                 <div class="mb-3">
                     <label class="text-[10px] font-bold text-[#E8A030] tracking-widest mb-1 block">【語源】</label>
                     <textarea id="ai-origin" name="ai-origin" rows="5"
@@ -147,7 +156,7 @@
             <button type="submit" name="status" value="published"
                     class="w-full rounded-xl py-3.5 text-sm font-bold"
                     style="background:#E8A030; color:#fff;">
-                辞書に登録する
+                更新する
             </button>
         </div>
 
@@ -218,6 +227,7 @@
             const synonymsRaw = document.getElementById('ai-synonyms').value;
             const antonymsRaw = document.getElementById('ai-antonyms').value;
             document.getElementById('dictionary_data').value = JSON.stringify({
+                part_of_speech: document.getElementById('ai-part-of-speech').value,
                 meaning:  document.getElementById('ai-meaning').value,
                 origin:   document.getElementById('ai-origin').value,
                 example:  document.getElementById('ai-example').value,
@@ -245,13 +255,12 @@
             }
 
             if (existingData && (existingData.meaning || existingData.origin || existingData.example)) {
+                document.getElementById('ai-part-of-speech').value = existingData.part_of_speech || '';
                 document.getElementById('ai-meaning').value = existingData.meaning || '';
                 document.getElementById('ai-origin').value = existingData.origin || '';
                 document.getElementById('ai-example').value = existingData.example || '';
-                // ↓ここを追加
                 document.getElementById('ai-synonyms').value = (existingData.synonyms ?? []).join(', ');
-                document.getElementById('ai-antonyms').value = (existingData.antonyms ?? []).join(', ');
-                
+                document.getElementById('ai-antonyms').value = (existingData.antonyms ?? []).join(', ');   
                 document.getElementById('ai-result').classList.remove('hidden');
                 document.getElementById('dictionary_data').value = JSON.stringify(existingData);
             }
@@ -286,10 +295,14 @@
 
                 const data = await res.json();
                 
+                document.getElementById('ai-part-of-speech').value = data.part_of_speech || '';
                 document.getElementById('ai-meaning').value = data.meaning || '';
                 document.getElementById('ai-origin').value = data.origin || '';
                 document.getElementById('ai-example').value = data.example || '';
+                document.getElementById('ai-synonyms').value = (data.synonyms || []).join(', ');
+                document.getElementById('ai-antonyms').value = (data.antonyms || []).join(', ');
                 resultArea.classList.remove('hidden');
+                document.getElementById('dictionary_data').value = JSON.stringify(data);
                 
             } catch (error) {
                 console.error(error);

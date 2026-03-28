@@ -1,7 +1,6 @@
 <x-guest-layout>
     <div class="w-full flex flex-col items-center justify-center pt-16 px-4 pb-10">        
         <x-auth-logo subtitle="New Account" />
-
         <x-auth-card>
             <form method="POST" action="{{ route('register') }}">
                 @csrf
@@ -32,9 +31,11 @@
                     <label class="text-xs font-bold text-[#2E1A08] mb-2 block">パスワード</label>
                     <div class="relative">
                         <input type="password" name="password" id="password" required
-                            placeholder="••••••••"
                             class="w-full rounded-lg px-3 py-2.5 text-sm text-[#2E1A08] outline-none pr-10"
                             style="background:#F6F2EC; border:1px solid #E0D4C0;">
+                            @error('password')
+                                <p class="text-xs text-[#C0392B] mt-1">{{ $message }}</p>
+                            @enderror
                         <button type="button" onclick="togglePassword('password')"
                                 class="absolute right-3 top-1/2 -translate-y-1/2 text-[#9A8A7A]">
                             <svg id="eye-password" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256" class="hidden">
@@ -51,9 +52,11 @@
                     <label class="text-xs font-bold text-[#2E1A08] mb-2 block">パスワード（確認用）</label>
                     <div class="relative">
                         <input type="password" name="password_confirmation" id="password_confirmation" required
-                            placeholder="••••••••"
                             class="w-full rounded-lg px-3 py-2.5 text-sm text-[#2E1A08] outline-none pr-10"
                             style="background:#F6F2EC; border:1px solid #E0D4C0;">
+                            @error('password_confirmation')
+                                <p class="text-xs text-[#C0392B] mt-1">{{ $message }}</p>
+                            @enderror
                         <button type="button" onclick="togglePassword('password_confirmation')"
                                 class="absolute right-3 top-1/2 -translate-y-1/2 text-[#9A8A7A]">
                             <svg id="eye-password_confirmation" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256" class="hidden">

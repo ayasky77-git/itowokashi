@@ -24,34 +24,39 @@
     $currentIndex = $words->search(fn($w) => $w->id === $word->id);
     $prevWord = $currentIndex > 0 ? $words[$currentIndex - 1] : null;
     $nextWord = $currentIndex < $words->count() - 1 ? $words[$currentIndex + 1] : null;
+    $nickname = \App\Models\DictionaryUser::where('dictionary_id', $dictionary->id)
+        ->where('user_id', $word->user_id)
+        ->value('nickname') ?? $word->user?->name;
+    $editorNickname = $word->lastEditor 
+        ? (\App\Models\DictionaryUser::where('dictionary_id', $dictionary->id)
+            ->where('user_id', $word->lastEditor->id)
+            ->value('nickname') ?? $word->lastEditor->name)
+        : null;
 @endphp
 
 <div class="rounded-2xl mt-4 px-6 py-8 mb-4 relative overflow-hidden"
      style="background:#fff; box-shadow:0 2px 10px rgba(0,0,0,0.07);">
 
     {{-- 見出し語 --}}
-    <div class="flex items-baseline gap-3 mb-1">
+    <div class="flex items-baseline gap-3 mb-2">
         <h1 class="font-serif text-3xl font-bold text-[#2E1A08]">{{ $word->headword }}</h1>
     </div>
     <p class="text-xs text-[#9A8A7A] tracking-widest mb-2">【{{ $word->reading }}】</p>
 
     {{-- 品詞 --}}
     @if($partOfSpeech)
-    <span class="inline-block text-[10px] font-bold text-[#E8A030] border border-[#E8A030] rounded px-2 py-0.5 mb-3">
-        【{{ $partOfSpeech }}】
-    </span>
+        <span class="inline-block text-[10px] font-bold text-[#E8A030] border border-[#E8A030] rounded px-2 py-0.5 mb-2">
+            {{ $partOfSpeech }}
+        </span>
     @endif
 
     {{-- 登録者・日付 --}}
-    <div class="flex items-center gap-2 mb-4 text-xs text-[#9A8A7A]">
+    <div class="mb-4 text-xs text-[#9A8A7A]">
         @if($word->user)
-        <span>{{ $word->user->name }}</span>
-        <span>•</span>
+        <div>作成：{{ $nickname }} / {{ $word->created_at->format('Y-m-d') }}</div>
         @endif
-        @if($firstAppeared)
-        <span>{{ $firstAppeared }}</span>
-        @elseif($word->created_at)
-        <span>{{ $word->created_at->format('Y-m-d') }}</span>
+        @if($word->lastEditor && $word->lastEditor->id !== $word->user?->id)
+        <div>更新：{{ editorNickname }} / {{ $word->updated_at->format('Y-m-d') }}</div>
         @endif
     </div>
 
@@ -80,7 +85,7 @@
     @if($example)
     <div class="mb-5">
         <p class="text-[11px] font-bold text-[#E8A030] tracking-widest mb-2">【用例】</p>
-        <p class="text-sm text-[#665A50] leading-relaxed pl-4">「{{ $example }}」</p>
+        <p class="text-sm text-[#665A50] leading-relaxed pl-4">{{ is_array($example) ? implode('', $example) : $example }}</p>
     </div>
     @endif
 
@@ -136,12 +141,13 @@
        class="text-sm text-[#9A8A7A] {{ !$prevWord ? 'opacity-30 pointer-events-none' : '' }}">
         ‹ 前
     </a>
-    <form method="POST" action="{{ route('reactions.store', ['dictionary' => $word->dictionary_id, 'word' => $word->id]) }}">
+    <form id="reaction-form-detail" method="POST" action="{{ route('reactions.store', ['dictionary' => $word->dictionary_id, 'word' => $word->id]) }}">
         @csrf
-        <button type="submit"
+        <button type="button" id="reaction-btn-detail"
+                onclick="toggleReactionDetail()"
                 class="flex items-center gap-2 rounded-full px-5 py-2 text-sm font-bold"
                 style="background:{{ $reacted ? '#F2E8D8' : '#FEF8F0' }}; color:{{ $reacted ? '#E8A030' : '#9A8A7A' }}; border:1.5px solid {{ $reacted ? '#E8A030' : '#E0D4C0' }}; box-shadow:0 2px 8px rgba(0,0,0,0.10);">
-            ✦ {{ $reactionCount }} をかし
+            ✦ <span id="reaction-count-detail">{{ $reactionCount }}</span> をかし
         </button>
     </form>
     <a href="{{ $nextWord ? route('dictionaries.words.show', [$dictionary, $nextWord]) : '#' }}"
@@ -150,3 +156,22 @@
     </a>
 </div>
 @endif
+
+<script>
+async function toggleReactionDetail() {
+    const form = document.getElementById('reaction-form-detail');
+    const btn = document.getElementById('reaction-btn-detail');
+    const res = await fetch(form.action, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    });
+    const data = await res.json();
+    document.getElementById('reaction-count-detail').textContent = data.count;
+    btn.style.background = data.reacted ? '#F2E8D8' : '#FEF8F0';
+    btn.style.color = data.reacted ? '#E8A030' : '#9A8A7A';
+    btn.style.borderColor = data.reacted ? '#E8A030' : '#E0D4C0';
+}
+</script>

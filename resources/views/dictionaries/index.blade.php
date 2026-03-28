@@ -2,8 +2,8 @@
 
 @section('header')
     <div class="text-center mb-6 my-6">
-        <p class="text-xs text-[#9A8A7A] mb-1">思い出を、言葉で綴る</p>
-        <h1 class="font-serif text-xl text-[#665A50] tracking-widest">イトヲカシ</h1>
+        <p class="text-[10px] text-[#9A8A7A] mb-1">思い出を、言葉で綴る</p>
+        <h1 class="font-serif text-xl font-bold text-[#665A50] tracking-[0.2em]">イトヲカシ</h1>    
     </div>
 @endsection
 
@@ -15,7 +15,16 @@
         $rows = $dictionaries->chunk($perRow);
     @endphp
 
-        @foreach($rows as $row)
+    {{-- 空の棚（辞書が0冊でも表示） --}}
+    @if($dictionaries->isEmpty())
+        <div style="padding: 16px 16px 0; background-color: #A67C52;">
+            <div class="h-2.5 -mx-4 rounded" style="background:#C8A878; margin: 0px -16px 10px;"></div>
+            <div class="flex items-end gap-1.5" style="min-height: 140px;"></div>
+            <div class="h-2.5 -mx-4" style="background:#C8A878; margin: 4px -16px 0;"></div>
+        </div>
+    @endif
+
+    @foreach($rows as $row)
         <div class="" style="
             padding: 16px 16px 0;
             background-color: #A67C52;">
@@ -37,11 +46,10 @@
     @endforeach
 
     <a href="{{ route('dictionaries.create') }}"
-    class="flex items-center gap-2 w-full rounded-xl mt-4 px-4 py-3 text-[#9A8A7A] text-sm"
-    style="background:#fff; border:1.5px dashed #E0D4C0;">
-        <span class="w-16 flex flex-col items-center justify-center w-6 h-6 bg-[#E8A030] rounded-full text-white shadow-md">+</span>
-            
-        新しい辞書をつくる
+        class="flex items-center gap-2 w-full rounded-xl mt-4 px-4 py-3 text-[#9A8A7A] text-sm"
+        style="background:#fff; border:1.5px dashed #E0D4C0;">
+            <span class="w-16 flex flex-col items-center justify-center w-6 h-6 bg-[#E8A030] rounded-full text-white shadow-md">+</span>    
+            新しい辞書をつくる
     </a>
 
 @endsection

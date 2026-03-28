@@ -23,7 +23,7 @@ class Word extends Model
         'dictionary_data',
         'image_path',
         'status',
-
+        'last_editor_id',
     ];
 
     public function dictionary()
@@ -45,5 +45,12 @@ class Word extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function lastEditor()
+    {
+        return $this->belongsTo(User::class, 'last_editor_id');
+    }
+    protected $casts = [
+        'dictionary_data' => 'array',
+    ];
 }
 

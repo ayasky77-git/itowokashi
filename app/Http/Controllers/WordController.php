@@ -93,12 +93,11 @@ class WordController extends Controller
         if ($request->hasFile('image_path')) {
         $path = $request->file('image_path')->store('images', 'public');
         $validated['image_path'] = $path;
-}
+        }
         
         $word=Word::create($validated);
         $word->tags()->sync($request->tag_ids ?? []);
-
-        return redirect()->route('dictionaries.show', $dictionary);
+        return redirect()->route('dictionaries.words.show', [$dictionary, $word]);
     }
 
     public function show(Dictionary $dictionary, Word $word)
@@ -127,9 +126,7 @@ class WordController extends Controller
     }
 
     public function update(Request $request,Dictionary $dictionary,Word $word)
-    {
-        // dd($request->all()); // ← フォームから来たデータを確認！
-        
+    {        
         $isMember = DictionaryUser::where('dictionary_id', $dictionary->id)
             ->where('user_id', auth()->id())
             ->exists();

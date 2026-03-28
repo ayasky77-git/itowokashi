@@ -14,8 +14,14 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
-        $dictCount = DictionaryUser::where('user_id', $user->id)->count();
-        $wordCount = Word::where('user_id', $user->id)->count();
+        $dictCount = DictionaryUser::where('user_id', $user->id)
+            ->whereHas('dictionary')
+            ->count();
+
+        $wordCount = Word::where('user_id', $user->id)
+            ->whereNull('deleted_at')
+            ->count();
+            
         $reactionCount = WordReaction::whereIn(
             'word_id',
             Word::where('user_id', $user->id)->pluck('id')

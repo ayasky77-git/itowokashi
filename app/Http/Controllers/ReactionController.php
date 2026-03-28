@@ -32,7 +32,11 @@ class ReactionController extends Controller
             ]);
         }
 
-        return redirect()->route('dictionaries.words.show', [$dictionary, $word]);
+        if ($request->ajax()) {
+            $count = WordReaction::where('word_id', $word->id)->count();
+            return response()->json(['reacted' => !$existing, 'count' => $count]);
+        }
+        return back();
 
     }
 }

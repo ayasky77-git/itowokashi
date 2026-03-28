@@ -99,7 +99,7 @@
                 
                 <input type="text" name="nickname"
                     value="{{ old('nickname', $myNickname) }}"
-                    placeholder="例：たろう"
+                    placeholder="{{ auth()->user()->name }}"
                     class="w-full rounded-xl px-4 py-3.5 text-sm text-[#2E1A08] outline-none shadow-inner"
                     style="background:#F6F2EC; border:1px solid #E0D4C0;">
             </div>

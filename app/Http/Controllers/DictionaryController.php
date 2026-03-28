@@ -37,21 +37,20 @@ class DictionaryController extends Controller
 
     public function create()
     {
-        // 🔽 追加
-
         return view('dictionaries.create');
     }
 
     
     public function store(Request $request)
-    {
-        // dd($request->all()); // ← フォームから来たデータを確認！
-        
+    {        
         $validated = $request->validate([
-            'title' => 'required|max:255',
+            'title' => 'required|max:12',
             'obi_text' =>'nullable',
             'color_code' =>'nullable',
             'spine_pattern' =>'nullable',
+        ], [
+            'title.required' => 'タイトルを入力してください',
+            'title.max' => 'タイトルは12文字以内で入力してください',
         ]);
         $validated['creator_id'] = auth()->id();
         $validated['invite_code']=Str::random(8);
@@ -103,7 +102,17 @@ class DictionaryController extends Controller
             ->where('status', 'draft')
             ->count();
 
-        return view('dictionaries.show', compact('words', 'dictionary', 'userRole', 'members', 'totalReactions','draftCount'));
+        $userDictionaries = DictionaryUser::where('user_id', auth()->id())
+            ->whereHas('dictionary')
+            ->with('dictionary')
+            ->get()
+            ->pluck('dictionary');
+
+        $currentIndex = $userDictionaries->search(fn($d) => $d->id === $dictionary->id);
+        $prevDictionary = $currentIndex > 0 ? $userDictionaries[$currentIndex - 1] : null;
+        $nextDictionary = $currentIndex < $userDictionaries->count() - 1 ? $userDictionaries[$currentIndex + 1] : null;    
+
+        return view('dictionaries.show', compact('words', 'dictionary', 'userRole', 'members', 'totalReactions', 'draftCount', 'prevDictionary', 'nextDictionary'));
     }
 
     public function edit(Dictionary $dictionary)

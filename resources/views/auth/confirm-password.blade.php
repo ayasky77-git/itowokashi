@@ -18,7 +18,6 @@
                     <label class="text-xs font-bold text-[#2E1A08] mb-2 block">パスワード</label>
                     <div class="relative">
                         <input type="password" name="password" id="password" required
-                            placeholder="••••••••"
                             class="w-full rounded-lg px-3 py-2.5 text-sm text-[#2E1A08] outline-none pr-10"
                             style="background:#F6F2EC; border:1px solid #E0D4C0;">
                         <button type="button" onclick="togglePassword('password')"

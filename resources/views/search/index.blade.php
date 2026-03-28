@@ -32,14 +32,20 @@
 
     <div class="space-y-3 mb-10">
         @forelse($search as $word)
-            {{-- 結果リスト：編集画面のカードと同じスタイル --}}
+            {{-- 結果リスト --}}
             <a href="{{ route('dictionaries.words.show', [$word->dictionary_id, $word->id]) }}" 
                class="block rounded-xl px-4 py-4 shadow-sm active:scale-[0.98] transition-transform"
                style="background:#fff; border:1px solid #E0D4C0;">
                 <div class="flex justify-between items-center">
                     <div>
-                        <p class="text-[10px] font-bold text-[#C8A878] mb-0.5">{{ $word->reading }}</p>
-                        <h3 class="text-base font-serif font-bold text-[#2E1A08]">{{ $word->headword }}</h3>
+                        {{-- 辞書名バッジ --}}
+                        <span class="inline-block text-[10px] text-[#9A8A7A] rounded-full px-3 py-0.5 mb-2"
+                        style="background:#F2E8D8;">
+                            {{ $word->dictionary->title }}
+                        </span>
+                        <br>
+                        <span class="font-serif text-base font-bold text-[#2E1A08]">{{ $word->headword }}</span>
+                        <span class="text-[10px] text-[#9A8A7A]">【{{ $word->reading }}】</span>
                     </div>
                     <div class="text-[#E0D4C0]">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
