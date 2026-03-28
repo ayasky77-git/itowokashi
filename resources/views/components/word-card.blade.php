@@ -28,7 +28,7 @@
     <h2 class="font-serif text-3xl font-bold text-[#2E1A08] tracking-wider mb-1">
         {{ $word->headword }}
     </h2>
-    <p class="text-xs text-[#9A8A7A] tracking-widest mb-5">{{ $word->reading }}</p>
+    <p class="text-xs text-[#9A8A7A] tracking-widest mb-5">【{{ $word->reading }}】</p>
 
     <hr class="border-[#E0D4C0] mb-4">
 

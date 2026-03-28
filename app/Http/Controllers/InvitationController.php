@@ -16,21 +16,32 @@ class InvitationController extends Controller
     }    
 
 
-    public function join(Request $request)
-    {
-        $dictionary = Dictionary::where('invite_code', $request->invite_code)->firstOrFail();
-        $alreadyJoined = DictionaryUser::where('dictionary_id', $dictionary->id)
-            ->where('user_id', auth()->id())
-            ->exists();
-        if ($alreadyJoined) {
-            return redirect()->route('dictionaries.show', $dictionary);
-        }
+public function join(Request $request)
+{
+    $request->validate([
+        'invite_code' => 'required',
+    ]);
 
-        DictionaryUser::create([
-            'dictionary_id' => $dictionary->id,
-            'user_id' => auth()->id(),
-            'role' => 'editor',
-        ]);
+    $dictionary = Dictionary::where('invite_code', $request->invite_code)->first();
+
+    if (!$dictionary) {
+        return back()->withErrors(['invite_code' => '招待コードが正しくありません。もう一度確認してください。']);
+    }
+
+    $alreadyJoined = DictionaryUser::where('dictionary_id', $dictionary->id)
+        ->where('user_id', auth()->id())
+        ->exists();
+
+    if ($alreadyJoined) {
         return redirect()->route('dictionaries.show', $dictionary);
     }
+
+    DictionaryUser::create([
+        'dictionary_id' => $dictionary->id,
+        'user_id' => auth()->id(),
+        'role' => 'editor',
+    ]);
+
+    return redirect()->route('dictionaries.show', $dictionary);
+}
 }

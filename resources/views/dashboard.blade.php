@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="flex flex-col px-4 pb-32 space-y-4">
+<div class="flex flex-col px-4 pb-2 space-y-4">
 
     {{-- 1. ユーザープロフィールカード --}}
     <a href="{{ route('profile.edit') }}"
@@ -79,8 +79,17 @@
     </div>
     @endif
 
+    {{-- 5. お問い合わせ --}}
+    <a href="mailto:postmaster@r7-seven.sakura.ne.jp?subject=イトヲカシへのお問い合わせ"
+    class="w-full rounded-xl py-3.5 text-sm font-bold flex items-center justify-center gap-2"
+    style="background:#fff; border:1.5px solid #E0D4C0; color:#9A8A7A;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256">
+            <path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-96,85.15L52.57,64H203.43ZM98.71,128,40,181.81V74.19Zm11.84,10.85,12,11.05a8,8,0,0,0,10.82,0l12-11.05,58.2,53.15H52.23ZM157.29,128,216,74.19V181.81Z"/>
+        </svg>
+        お問い合わせ
+    </a>    
 
-    {{-- 5. ログアウト --}}
+    {{-- 6. ログアウト --}}
     <form method="POST" action="{{ route('logout') }}">
         @csrf
         <button type="submit" class="w-full py-4 text-xs font-bold text-[#9A8A7A] underline decoration-[#E0D4C0]">

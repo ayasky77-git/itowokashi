@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-<div class="flex flex-col items-center px-4 pb-32 space-y-8">
+<div class="flex flex-col items-center px-4 pb-2 space-y-8">
     
     {{-- 1. プロフィール情報更新 --}}
     <div class="w-full rounded-2xl p-6 shadow-sm border border-[#E0D4C0]" style="background:#fff;">

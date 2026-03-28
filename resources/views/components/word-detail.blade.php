@@ -32,8 +32,8 @@
     {{-- 見出し語 --}}
     <div class="flex items-baseline gap-3 mb-1">
         <h1 class="font-serif text-3xl font-bold text-[#2E1A08]">{{ $word->headword }}</h1>
-        <span class="text-sm text-[#9A8A7A]">【{{ $word->reading }}】</span>
     </div>
+    <p class="text-xs text-[#9A8A7A] tracking-widest mb-2">【{{ $word->reading }}】</p>
 
     {{-- 品詞 --}}
     @if($partOfSpeech)

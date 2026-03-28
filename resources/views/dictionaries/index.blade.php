@@ -2,7 +2,7 @@
 
 @section('header')
     <div class="text-center mb-6 my-6">
-        <p class="text-xs text-[#9A8A7A] mb-1">思い出を、綴る辞書アプリ</p>
+        <p class="text-xs text-[#9A8A7A] mb-1">思い出を、言葉で綴る</p>
         <h1 class="font-serif text-xl text-[#665A50] tracking-widest">イトヲカシ</h1>
     </div>
 @endsection
@@ -39,8 +39,8 @@
     <a href="{{ route('dictionaries.create') }}"
     class="flex items-center gap-2 w-full rounded-xl mt-4 px-4 py-3 text-[#9A8A7A] text-sm"
     style="background:#fff; border:1.5px dashed #E0D4C0;">
-        <span class="w-5 h-5 rounded-full flex items-center justify-center text-white text-base leading-none"
-            style="background:#E8A030;">+</span>
+        <span class="w-16 flex flex-col items-center justify-center w-6 h-6 bg-[#E8A030] rounded-full text-white shadow-md">+</span>
+            
         新しい辞書をつくる
     </a>
 

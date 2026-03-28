@@ -33,7 +33,7 @@
 
             <div class="rounded-2xl px-6 py-8 mb-8 text-left" style="background:#fff; box-shadow:0 2px 10px rgba(0,0,0,0.07);">
                 <p class="font-serif text-xl text-[#665A50] mb-3">イトヲカシ</p>
-                <p class="text-xs text-[#9A8A7A] tracking-widest mb-3">いとをかし</p>
+                <p class="text-xs text-[#9A8A7A] tracking-widest mb-3">【いとをかし】</p>
                 <hr class="border-[#E0D4C0] mb-3">
                 <p class="text-[10px] text-[#9A8A7A] tracking-widest mb-1">意　味</p>
                 <p class="text-sm text-[#665A50] leading-relaxed mb-4">感動・評価を表す表現。心が動かされる、なんとも言えず趣深い瞬間を表す。</p>
