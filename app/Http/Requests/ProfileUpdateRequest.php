@@ -27,4 +27,14 @@ class ProfileUpdateRequest extends FormRequest
             ],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'お名前を入力してください',
+            'email.required' => 'メールアドレスを入力してください',
+            'email.email' => 'メールアドレスの形式が正しくありません',
+            'email.unique' => 'このメールアドレスはすでに使用されています',
+        ];
+    }
 }

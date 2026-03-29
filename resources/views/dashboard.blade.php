@@ -71,7 +71,7 @@
             style="background:#fff;">
                 <p class="text-[10px] text-[#9A8A7A] mb-0.5">{{ $word->created_at->format('Y年n月j日') }}</p>
                 <p class="text-sm text-[#2E1A08]">
-                    「{{ $word->dictionary->title }}」に「{{ $word->headword }}」を追加しました
+                    「{{ $word->dictionary?->title }}」に「{{ $word->headword }}」を追加しました
                 </p>
             </a>
             @endforeach

@@ -24,11 +24,9 @@
 
         {{-- 【管理者のみ】辞書の装丁設定（タイトル・色・柄） --}}
         @if($userRole === 'admin')
-            <div class="mb-10">
-                <p class="text-[10px] font-bold text-[#E8A030] tracking-widest uppercase mb-4 px-1">Dictionary Design</p>
-                
                 {{-- プレビューエリア --}}
-                <div class="text-center py-6 mb-8 rounded-2xl" style="background:rgba(255,255,255,0.5); border:1px dashed #E0D4C0;">
+                <div class="text-center py-4 -mx-4 px-4 mb-6 -mt-4 sticky top-0 z-30"
+                    style="background:rgba(254,248,240,0.85);">
                     <div class="relative inline-block">
                         <div id="preview-cover"
                             class="flex flex-col items-center justify-center relative overflow-hidden mx-auto transition-all duration-300"
@@ -87,7 +85,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
         @endif
 
         {{-- 【全員】この辞書での表示名（Editorにとってはメイン） --}}

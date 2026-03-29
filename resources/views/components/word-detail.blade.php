@@ -56,7 +56,7 @@
         <div>作成：{{ $nickname }} / {{ $word->created_at->format('Y-m-d') }}</div>
         @endif
         @if($word->lastEditor && $word->lastEditor->id !== $word->user?->id)
-        <div>更新：{{ editorNickname }} / {{ $word->updated_at->format('Y-m-d') }}</div>
+        <div>更新：{{ $editorNickname }} / {{ $word->updated_at->format('Y-m-d') }}</div>
         @endif
     </div>
 

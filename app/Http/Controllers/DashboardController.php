@@ -21,13 +21,16 @@ class DashboardController extends Controller
         $wordCount = Word::where('user_id', $user->id)
             ->whereNull('deleted_at')
             ->count();
-            
+
         $reactionCount = WordReaction::whereIn(
             'word_id',
-            Word::where('user_id', $user->id)->pluck('id')
+            Word::where('user_id', $user->id)
+                ->whereNull('deleted_at')
+                ->pluck('id')
         )->count();
 
         $recentWords = Word::where('user_id', $user->id)
+            ->whereHas('dictionary')
             ->with('dictionary')
             ->latest()
             ->take(5)
