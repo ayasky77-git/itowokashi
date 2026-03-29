@@ -22,8 +22,8 @@
         ->orderBy('reading')
         ->get();
     $currentIndex = $words->search(fn($w) => $w->id === $word->id);
-    $prevWord = $currentIndex > 0 ? $words[$currentIndex - 1] : null;
-    $nextWord = $currentIndex < $words->count() - 1 ? $words[$currentIndex + 1] : null;
+    $prevWord = ($currentIndex !== false && $currentIndex > 0) ? $words[$currentIndex - 1] : null;
+    $nextWord = ($currentIndex !== false && $currentIndex < $words->count() - 1) ? $words[$currentIndex + 1] : null;
     $nickname = \App\Models\DictionaryUser::where('dictionary_id', $dictionary->id)
         ->where('user_id', $word->user_id)
         ->value('nickname') ?? $word->user?->name;

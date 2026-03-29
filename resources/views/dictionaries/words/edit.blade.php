@@ -130,6 +130,12 @@
                     <p>現在の画像：</p>
                     <img src="{{ asset('storage/' . $word->image_path) }}" max-width="100" class="rounded-xl mt-2">
                 @endif
+                @if($word->image_path)
+                <div class="flex items-center gap-2 mt-2">
+                    <input type="checkbox" name="delete_image" id="delete_image" value="1">
+                    <label for="delete_image" class="text-xs text-[#C0392B]">現在の画像を削除する</label>
+                </div>
+                @endif
             <label class="w-full rounded-xl mt-4 py-3 text-sm font-bold flex items-center justify-center gap-2 cursor-pointer"
                 style="background:#E8A030; color:#fff;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256">
@@ -188,7 +194,9 @@
 
         // よみがなからinitial_charを自動生成
         document.getElementById('reading').addEventListener('input', function() {
-            const reading = this.value;
+            const reading = this.value.replace(/[\u30A1-\u30F6]/g, c => 
+                String.fromCharCode(c.charCodeAt(0) - 0x60)
+            );
             if (!reading) return;
             const first = reading[0];
             const rowMap = {

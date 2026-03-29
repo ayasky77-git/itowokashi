@@ -151,6 +151,12 @@ class WordController extends Controller
             $path = $request->file('image_path')->store('images', 'public');
             $validated['image_path'] = $path;
         }
+        if ($request->boolean('delete_image')) {
+            if ($word->image_path) {
+                \Storage::disk('public')->delete($word->image_path);
+            }
+            $validated['image_path'] = null;
+        }
         $word->update($validated);
         $word->tags()->sync($request->tag_ids ?? []);
         return redirect()->route('dictionaries.words.show', [$dictionary, $word]);

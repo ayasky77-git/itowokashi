@@ -29,7 +29,7 @@
                 style="background:rgba(0,0,0,0.4);"
                 onclick="if(event.target===this)this.classList.add('hidden')">
 
-                <div class="w-full max-w-[390px] rounded-t-2xl pb-8"
+                <div class="w-full max-w-[390px] rounded-t-2xl pb-8 mb-8"
                     style="background:#FEF8F0;">
 
                     {{-- ハンドル + ×ボタン --}}

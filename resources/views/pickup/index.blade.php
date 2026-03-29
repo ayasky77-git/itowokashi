@@ -37,7 +37,7 @@
                 <span class="inline-block text-[10px] font-bold text-[#E8A030] border border-[#E8A030] rounded px-2 py-0.5 mb-3">形容詞</span>
                 <hr class="border-[#E0D4C0] mb-3">
                 <p class="text-[10px] text-[#E8A030] tracking-widest mb-1">意  味</p>
-                <p class="text-sm text-[#665A50] leading-relaxed mb-4">感動・評価を表す表現。心が動かされる、なんとも言えず趣深い瞬間を表す。</p>
+                <p class="text-sm text-[#665A50] leading-relaxed mb-4">感動・評価を表す表現。心が動かされる、なんとも言えず趣深い瞬間を表す</p>
                 <p class="text-[10px] text-[#E8A030] font-bold tracking-widest mb-1">このアプリでは</p>
                 <p class="text-sm text-[#665A50] leading-relaxed mb-1">思い出を言葉で綴り、自分だけの辞書を作ること</p>
                 <p class="text-sm text-[#665A50] leading-relaxed mb-1">それを大切な人と共有し、思い出で繋がること</p>

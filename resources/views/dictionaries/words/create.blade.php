@@ -167,7 +167,9 @@
 
         // よみがなからinitial_charを自動生成
         document.getElementById('reading').addEventListener('input', function() {
-            const reading = this.value;
+            const reading = this.value.replace(/[\u30A1-\u30F6]/g, c => 
+                String.fromCharCode(c.charCodeAt(0) - 0x60)
+            );            
             if (!reading) return;
             const first = reading[0];
             const rowMap = {
