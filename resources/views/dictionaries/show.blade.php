@@ -79,7 +79,7 @@
                 @if($dictionary->obi_text)
                 <div class="absolute bottom-0 left-0 right-0 flex items-center justify-center py-3"
                     style="height:80px; background:#F2E8D8; border-radius:0 0 8px 4px;">
-                    <span class="text-xs font-bold tracking-widest mx-5" style="color:{{ $color }};">{{ $dictionary->obi_text }}</span>
+                    <span class="text-xs font-bold tracking-widest mx-5 text-center" style="color:{{ $color }};">{{ $dictionary->obi_text }}</span>
                 </div>
                 @endif
             </div>

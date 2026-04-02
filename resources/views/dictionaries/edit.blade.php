@@ -33,7 +33,7 @@
                             style="width:120px; min-height:168px; background:{{ old('color_code', $dictionary->color_code ?? '#E8A030') }};
                                     border-radius:4px 8px 8px 4px;
                                     box-shadow: 4px 4px 14px rgba(0,0,0,0.2), inset 3px 0 6px rgba(0,0,0,0.1);
-                                    padding:16px 12px 40px;">
+                                    padding:4px 1px 40px;">
                             <div id="preview-pattern" class="absolute inset-0" style="background-repeat:repeat; pointer-events:none;"></div>
                             <h2 id="preview-title"
                                 class="font-serif text-sm font-bold text-center relative z-10"
